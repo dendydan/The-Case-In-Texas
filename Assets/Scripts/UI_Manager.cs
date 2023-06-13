@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using TMPro;
 
 public class UI_Manager : MonoBehaviour
@@ -12,6 +13,7 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text Name;
     public RawImage bg;
     public GameObject KitchenPl;
+    public Dialoge[] characters;
 
 
     void Start()

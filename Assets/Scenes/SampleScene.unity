@@ -287,9 +287,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u0421\u0435\u043D\u043E"
   child: {fileID: 1638508835}
+  spr: {fileID: 0}
+  i: 255
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 183162263}
+  isCame: 0
 --- !u!1 &196992446
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 196992447}
-  - component: {fileID: 196992448}
   - component: {fileID: 196992449}
   m_Layer: 5
   m_Name: lup
@@ -329,22 +335,6 @@ RectTransform:
   m_AnchoredPosition: {x: -573, y: -94}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &196992448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196992446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be32d10f35bd3c64fb4f6bee50b87c7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  istextAnimating: 0
-  isDialStart: 0
-  CharName: "\u041C\u0443\u0445\u0442\u0430\u0440"
-  child: {fileID: 1190387066}
 --- !u!114 &196992449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,9 +348,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u041B\u0443\u043F"
   child: {fileID: 1190387066}
+  spr: {fileID: 0}
+  i: 255
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 196992447}
+  isCame: 0
 --- !u!1 &309983240
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,9 +487,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u041A\u043E\u0442\u044D"
   child: {fileID: 811702236}
+  spr: {fileID: 0}
+  i: 255
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 481861828}
+  isCame: 0
 --- !u!1 &514103457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,7 +1954,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1638508837
@@ -2123,7 +2127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2371,6 +2375,12 @@ MonoBehaviour:
   Name: {fileID: 933321787}
   bg: {fileID: 905562799}
   KitchenPl: {fileID: 2115530130}
+  characters:
+  - {fileID: 196992449}
+  - {fileID: 1899631466}
+  - {fileID: 2118684385}
+  - {fileID: 481861829}
+  - {fileID: 183162264}
 --- !u!4 &1896192830
 Transform:
   m_ObjectHideFlags: 0
@@ -2464,9 +2474,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u041C\u0443\u0445\u0442\u0430\u0440"
   child: {fileID: 1996745474}
+  spr: {fileID: 0}
+  i: 255
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 1899631465}
+  isCame: 0
 --- !u!1 &1996745474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,9 +2787,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437\u0447\u0438\u043A"
   child: {fileID: 647375556}
+  spr: {fileID: 0}
+  i: 0
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 2099833523}
+  isCame: 0
 --- !u!1 &2115530130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2808,7 +2832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -314.713}
+  m_AnchoredPosition: {x: 0, y: -421}
   m_SizeDelta: {x: 0, y: -629.4261}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115530132
@@ -2897,6 +2921,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   istextAnimating: 0
-  isDialStart: 0
+  isDialStart: 1
   CharName: "\u0427\u0435\u0440\u0440"
   child: {fileID: 1713112514}
+  spr: {fileID: 0}
+  i: 255
+  endpos: {x: 0, y: 0}
+  isSpeaking: 0
+  textRightNow: 
+  rect: {fileID: 2118684384}
+  isCame: 0

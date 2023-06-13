@@ -7,72 +7,109 @@ using DG.Tweening;
 public abstract class Dialoge : MonoBehaviour
 {
     public bool istextAnimating;
-    public bool isDialStart;
+    public bool isDialStart = true;
     public string CharName;
-    public static Dialoge dial;
     public GameObject child;
-    private RawImage spr;
-    private float i;
+    public RawImage spr;
+    public float i = 255f;
+    public Vector2 endpos;
+    public bool isSpeaking;
+    public string textRightNow;
+    public RectTransform rect;
+    public bool isCame;
 
-    public void Start()
+    public virtual void Start()
     {
-        dial = this;
         spr = child.GetComponent<RawImage>();
     }
 
-    public virtual void MoveToOn(float endpos, float duration , int rotate , float startPosX ,float startPosY)
-    { 
-        transform.GetComponent<RectTransform>().localPosition = new Vector2(startPosX, startPosY);
-        transform.DOLocalMoveX(endpos, duration);
-        transform.GetComponent<RectTransform>().localScale = new Vector3(transform.GetComponent<RectTransform>().localScale.x * rotate, transform.GetComponent<RectTransform>().localScale.y);
+    public virtual void ComeTo(float localEndpos, int rotate, float startPosX, float startPosY)
+    {
+        rect.localPosition = new Vector2(startPosX, startPosY);
+        endpos = new Vector2(localEndpos, startPosY);
+        transform.DOLocalMoveX(localEndpos, 1);
+        rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
+        StartCoroutine("LerpOn");
+        isCame = true;
     }
 
-    public void SetCharacter(bool active)
+    public virtual void SetCharacterTo( int rotate, float startPosX, float startPosY)
+    {
+        i = 1;
+        rect.localPosition = new Vector2(startPosX, startPosY);
+        endpos = new Vector2(startPosX, startPosY);
+        rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
+        isCame = true;
+    }
+
+    public virtual void GoneTo(float localEndpos, int rotate, float startPosX, float startPosY)
+    {
+        rect.localPosition = new Vector2(startPosX, startPosY);
+        transform.DOLocalMoveX(localEndpos, 1);
+        rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
+        StartCoroutine("LerpOff");
+        isCame = false;
+    }
+
+    public virtual void SetCharacter(bool active)
     {
         child.SetActive(active);
-    }
-
-    public virtual void SetCharPos(float x, float y)
-    {
-        transform.GetComponent<RectTransform>().localPosition = new Vector2(x, y);
+        switch (active)
+        {
+            case true:
+                i = 1;
+                break;
+            case false:
+                i = 0;
+                break;
+        }
     }
 
     public virtual void Update()
     {
-        //spr.color = new Color(255, 255, 255, i);
-        if (Input.GetMouseButtonDown(0) && Time.timeScale !=0 || Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0)
+        spr.color = new Color(255, 255, 255, i);
+        if (/*Input.GetMouseButtonDown(0) && Time.timeScale != 0 || */Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0)
         {
-            if (istextAnimating == false)
+            switch (istextAnimating)
             {
-                isDialStart = false;
-            }
-            else
-            {
-                return;
-            //    StopDialoge();
+                case false:
+                    isDialStart = false;
+                    transform.DOKill();
+                    rect.localPosition = endpos;
+                    if(isCame == true)
+                    {
+                        i = 1;
+                    }
+                    else
+                    {
+                        i = 0;
+                    }
+                    break;
+
+                case true:
+                    Stop();
+                    break;
             }
         }
     }
 
     public virtual void Say(string text)
     {
-        StartDialoge(text);
-    }
-
-    //public virtual void StopDialoge()
-    //{
-    //    StopCoroutine("AnimText");
-    //    UI_Manager.ui.dialogeText.text = ;
-    //    istextAnimating = false;
-    //    isDialStart = true;
-    //}
-
-    public virtual void StartDialoge(string text)
-    {
+        textRightNow = text;
         UI_Manager.ui.dialogeText.text = "";
         UI_Manager.ui.Name.text = CharName;
-        StartCoroutine("AnimText", text);;
+        StartCoroutine("AnimText", text); ;
         isDialStart = true;
+    }
+
+    public void Stop()
+    {
+        Debug.Log(CharName + " " + endpos);
+        StopCoroutine("AnimText");
+        transform.DOKill();
+        rect.localPosition = endpos;
+        UI_Manager.ui.dialogeText.text = textRightNow;
+        istextAnimating = false;
     }
 
     public virtual IEnumerator AnimText(string textAnim)
@@ -87,30 +124,27 @@ public abstract class Dialoge : MonoBehaviour
         istextAnimating = false;
     }
 
-    //public virtual IEnumerator Lerp(bool isComes)
-    //{
-    //    if (isComes == true)
-    //    {
-    //        spr.color = new Color(255, 255, 255, 0);
-    //        i = 0f;
-    //        while (i < 1f)
-    //        {
-    //            yield return new WaitForSeconds(0.00001f);
-    //            i += 0.05f;
-    //            yield return i;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        spr.color = new Color(255, 255, 255, 255);
-    //        i = 1f;
-    //        while (i > 1f)
-    //        {
-    //            yield return new WaitForSeconds(0.00001f);
-    //            i -= 0.05f;
-    //            yield return i;
-    //        }
-    //    }
 
-    //}
+
+    public virtual IEnumerator LerpOn()
+    {
+        spr.color = new Color(255, 255, 255, 0);
+        i = 0f;
+        while (i < 1f)
+        {
+            yield return new WaitForSeconds(0.00001f);
+            i += 0.05f;
+        }
+    }
+
+    public virtual IEnumerator LerpOff()
+    {
+        spr.color = new Color(255, 255, 255, 255);
+        i = 1f;
+        while (i > 0)
+        {
+            yield return new WaitForSeconds(0.00001f);
+            i -= 0.05f;
+        }
+    }
 }

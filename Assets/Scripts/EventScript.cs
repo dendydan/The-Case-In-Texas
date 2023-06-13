@@ -24,17 +24,19 @@ public class EventScript : MonoBehaviour
 
     public IEnumerator Events()
     {
+        reader.Say("Hажмите на пробел чтобы читать текст. Чтобы пропустить текст снова нажмите на пробел.");
+        yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Одним прекрасным днём, когда забегаловка только открылась. Стояла отличная погода, хоть и на улице все еще была весна, выглядело так, как будто только начинается лето, хотя для техасского климата это вполне нормально, ибо почти везде пустыня.");
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Вскоре после открытия забегаловки, нахлынул прилив добровольцев, которые хотели устроиться на работу.");
         BackGround.BG.ChangeBG(1);
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("это были Черр, Мухтар и Луп.");
-        muhtar.SetCharPos(0, -134);
+        muhtar.SetCharacterTo(1, 0, -134);
         muhtar.SetCharacter(true);
-        cher.SetCharPos(-573, -331);
+        cher.SetCharacterTo(1, -573, -331);
         cher.SetCharacter(true);
-        lup.SetCharPos(605, -94);
+        lup.SetCharacterTo(1 , 605, -134);
         lup.SetCharacter(true);
         BackGround.BG.ChangeBG(2);
         yield return new WaitUntil(() => reader.isDialStart == false);
@@ -42,23 +44,23 @@ public class EventScript : MonoBehaviour
         BackGround.BG.ChangeBG(3);
         lup.SetCharacter(false);
         muhtar.SetCharacter(false);
-        cher.SetCharPos(0, -10);
+        cher.SetCharacterTo(1, 0, -10);
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("А Мухтар с лупом стояли в столовой, ожидая пока прийдёт менеджер или кто-то другой, и вот, вскоре он пришёл.");
-        muhtar.SetCharPos(0, -134);
+        muhtar.SetCharacterTo(1, 0, -134);
         muhtar.SetCharacter(true);
         cher.SetCharacter(false);
-        lup.SetCharPos(605, -94);
+        lup.SetCharacterTo(1, 605, -134);
         lup.SetCharacter(true);
         BackGround.BG.ChangeBG(2);
         yield return new WaitUntil(() => reader.isDialStart == false);
         kote.SetCharacter(true);
-        kote.MoveToOn(-656f, 1, -1, -1240, -60);
+        kote.ComeTo(-656f, -1, -1240, -223);
         kote.Say("— Здравствуйте!");
         yield return new WaitUntil(() => kote.isDialStart == false);
         reader.Say("Cказал Кот, увидев обоих персон, заряженных потенциалом к работе.");
         yield return new WaitUntil(() => reader.isDialStart == false);
-        muhtar.Say("— Чзх?! Почему он летает?!!!");
+        muhtar.Say("— Чзх?! Почему он НЕ(см. прошлый билд) летает?!!!");
         yield return new WaitUntil(() => muhtar.isDialStart == false);
         reader.Say("Прошептал он Лупу.");
         yield return new WaitUntil(() => reader.isDialStart == false);
@@ -69,17 +71,17 @@ public class EventScript : MonoBehaviour
         reader.Say("Им провели небольшую беседу");
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Затем он ушли на кухню, где им сказали делать донеры.");
-        kote.MoveToOn(-1500f, 3, -1, -656, -60);
-        lup.MoveToOn(-1500f, 3, -1, 605f, -94);
-        muhtar.MoveToOn(-1500f, 3, -1, 0f, 0);
+        kote.GoneTo(-1240f, -1, -656, -223);
+        lup.GoneTo(-1240f, -1, 605f, -132);
+        muhtar.GoneTo(-1240f, -1, 0f, -132);
         yield return new WaitForSeconds(3);
         BackGround.BG.ChangeBG(3);
-        kote.MoveToOn(-149, 3, -1, 1500, -60);
-        lup.MoveToOn(787, 3, -1, 1500, -94);
-        muhtar.MoveToOn(341, 3, -1, 1500, 0);
+        kote.ComeTo(-149, -1, 1240, -223);
+        lup.ComeTo(787, -1, 1240, -132);
+        muhtar.ComeTo(341, -1, 1240, -132);
         yield return new WaitForSeconds(2.5f);
         seno.SetCharacter(true);
-        seno.MoveToOn(-671, 3, 1, -1240, -105);
+        seno.ComeTo(-671, 1, -1240, -105);
         reader.Say("На кухню зашла госпожа Сено, как ни странно это был стог сена, по её виду можно была сказать что зрение у неё оставляет желать лучшего, отчего она носит очки.");
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Вид у госпожи Сено был странный.");
@@ -92,30 +94,22 @@ public class EventScript : MonoBehaviour
         yield return new WaitUntil(() => seno.isDialStart == false);
         kote.Say("Хорошо, я скоро приду!");
         yield return new WaitUntil(() => kote.isDialStart == false);
-        seno.MoveToOn(-1280, 3, -1, -671, -105);
+        seno.GoneTo(-1280, -1, -671, -105);
         reader.Say("Сено стремительно вышла.");
         yield return new WaitUntil(() => reader.isDialStart == false);
         kote.Say("А вы не расслабляйтесь! Чтобы когда пришел все было готово!");
-        kote.MoveToOn(-149, 3, 1, -149, -60);
         yield return new WaitUntil(() => kote.isDialStart == false);
-        kote.MoveToOn(-1500f, 3, 1, -656, -60);
+        kote.ComeTo(-1500f, 1, -149, -132);
         reader.Say("Котэ вышел спеша за Сено");
         yield return new WaitUntil(() => reader.isDialStart == false);
         muhtar.SetCharacter(false);
         lup.SetCharacter(false);
         BackGround.BG.ChangeBG(4);
-        kote.MoveToOn(-75, 1, 1, -1500, -60);
-        seno.MoveToOn(535, 0, 1, 535, -105);
+        kote.ComeTo(-75, 1, -1500, -60);
+        seno.SetCharacterTo(1, 535, -105);
         reader.Say("");
         yield return new WaitForSeconds(2);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            kote.Say("ЫЫЫЫЫЫЫЫ ЧЛЕНЫ");
-        }
-        else
-        {
-            kote.Say("Что такое?");
-        }
+        kote.Say("Что такое?");
         yield return new WaitUntil(() => kote.isDialStart == false);
         seno.Say("Ну вообщем...");
         yield return new WaitUntil(() => seno.isDialStart == false);
@@ -132,7 +126,7 @@ public class EventScript : MonoBehaviour
         BackGround.BG.GetComponent<RawImage>().color = Color.white;
         seno.SetCharacter(true);
         kote.SetCharacter(true);
-        seno.MoveToOn(-1500, 1, 1, 535, -105);
+        seno.GoneTo(-1500, 1, 535, -105);
         reader.Say("От дикого смущения сено убежала прочь");
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Это было странное чувство, вы его еще запомните надолго");
@@ -145,17 +139,18 @@ public class EventScript : MonoBehaviour
         reader.CharName = "Автор";
         reader.Say("Или нет!");
         yield return new WaitUntil(() => reader.isDialStart == false);
-        reader.Say("Потому что я заебался программировать эту залупу");
+        reader.Say("И да это снова я...");
         yield return new WaitUntil(() => reader.isDialStart == false);
-        reader.Say("ОГРОМНОЕ СПАСИБО Дмитруку за предоставленный сюжет, без тебя этого бы небыло!");
+        reader.Say("ОГРОМНОЕ СПАСИБО Дмитруку за предоставленный сюжет, без тебя этого бы небыло! А так-же спасибо Котэ за отдельный канал на своём сервере");
         yield return new WaitUntil(() => reader.isDialStart == false);
-        reader.Say("Если вы захотите помочь с проектом, то все исходники я оставлю в своем форуме на сервере Котэ!");
+        reader.Say("Если вы захотите помочь с проектом, то все исходники я оставлю в своем форуме, а может уже в отдельном канале на сервере Котэ!");
         yield return new WaitUntil(() => reader.isDialStart == false);
         reader.Say("Спасибо, что потратили своё время на эту херню");
         yield return new WaitUntil(() => reader.isDialStart == false);
-        reader.Say("Если найдёте какие-либо баги пишите в форуме отметив меня. ПОКА!");
+        reader.Say("А я спать. Потому-что на момент программирования сейчас 2:11(МСК) часов ночи...");
+        yield return new WaitUntil(() => reader.isDialStart == false);
+        reader.Say("Если найдёте какие-либо баги пишите в форуме/канале отметив меня. ПОКА!");
         yield return new WaitForSeconds(10);
         Application.Quit();
-
     }
 }
