@@ -11,12 +11,11 @@ public abstract class Dialoge : MonoBehaviour
     public string CharName;
     public GameObject child;
     public RawImage spr;
-    public float i = 255f;
     public Vector2 endpos;
     public bool isSpeaking;
     public string textRightNow;
     public RectTransform rect;
-    public bool isCame;
+    public float alpha;
 
     public virtual void Start()
     {
@@ -29,26 +28,27 @@ public abstract class Dialoge : MonoBehaviour
         endpos = new Vector2(localEndpos, startPosY);
         transform.DOLocalMoveX(localEndpos, 1);
         rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
-        StartCoroutine("LerpOn");
-        isCame = true;
-    }
-
-    public virtual void SetCharacterTo( int rotate, float startPosX, float startPosY)
-    {
-        i = 1;
-        rect.localPosition = new Vector2(startPosX, startPosY);
-        endpos = new Vector2(startPosX, startPosY);
-        rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
-        isCame = true;
+        spr.color = new Color(255, 255, 255, 0);
+        alpha = 1;
     }
 
     public virtual void GoneTo(float localEndpos, int rotate, float startPosX, float startPosY)
     {
         rect.localPosition = new Vector2(startPosX, startPosY);
+        endpos = new Vector2(localEndpos, startPosY);
         transform.DOLocalMoveX(localEndpos, 1);
         rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
-        StartCoroutine("LerpOff");
-        isCame = false;
+        spr.color = new Color(255, 255, 255, 1);
+        alpha = 0;
+    }
+
+    public virtual void SetCharacterTo( int rotate, float startPosX, float startPosY)
+    {
+        rect.localPosition = new Vector2(startPosX, startPosY);
+        endpos = new Vector2(startPosX, startPosY);
+        rect.localScale = new Vector3(rect.localScale.x * rotate, rect.localScale.y);
+        spr.color = new Color(255, 255, 255, 1);
+        alpha = 1;
     }
 
     public virtual void SetCharacter(bool active)
@@ -57,18 +57,21 @@ public abstract class Dialoge : MonoBehaviour
         switch (active)
         {
             case true:
-                i = 1;
+                spr.color = new Color(255, 255, 255, 1);
+                alpha = 1;
                 break;
             case false:
-                i = 0;
+                spr.color = new Color(255, 255, 255, 0);
+                alpha = 0;
                 break;
         }
     }
 
     public virtual void Update()
     {
-        spr.color = new Color(255, 255, 255, i);
-        if (/*Input.GetMouseButtonDown(0) && Time.timeScale != 0 || */Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0)
+        spr.color = new Color(255, 255, 255, Mathf.Lerp(spr.color.a, alpha, 10 * Time.deltaTime));
+        
+        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0 || Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0)
         {
             switch (istextAnimating)
             {
@@ -76,14 +79,6 @@ public abstract class Dialoge : MonoBehaviour
                     isDialStart = false;
                     transform.DOKill();
                     rect.localPosition = endpos;
-                    if(isCame == true)
-                    {
-                        i = 1;
-                    }
-                    else
-                    {
-                        i = 0;
-                    }
                     break;
 
                 case true:
@@ -110,6 +105,7 @@ public abstract class Dialoge : MonoBehaviour
         rect.localPosition = endpos;
         UI_Manager.ui.dialogeText.text = textRightNow;
         istextAnimating = false;
+        spr.color = new Color(255, 255, 255, alpha);
     }
 
     public virtual IEnumerator AnimText(string textAnim)
@@ -118,33 +114,9 @@ public abstract class Dialoge : MonoBehaviour
         {
             yield return new WaitForSeconds(0.05f);
             UI_Manager.ui.dialogeText.text = UI_Manager.ui.dialogeText.text.Insert(UI_Manager.ui.dialogeText.text.Length, ch.ToString());
-            //Insert - вставляет [в опр. позицию в тексте](1) [кусок текста](2)
+            //Insert - РІСЃС‚Р°РІР»СЏРµС‚ [РІ РѕРїСЂ. РїРѕР·РёС†РёСЋ РІ С‚РµРєСЃС‚Рµ](1) [РєСѓСЃРѕРє С‚РµРєСЃС‚Р°](2)
             istextAnimating = true;
         }
         istextAnimating = false;
-    }
-
-
-
-    public virtual IEnumerator LerpOn()
-    {
-        spr.color = new Color(255, 255, 255, 0);
-        i = 0f;
-        while (i < 1f)
-        {
-            yield return new WaitForSeconds(0.00001f);
-            i += 0.05f;
-        }
-    }
-
-    public virtual IEnumerator LerpOff()
-    {
-        spr.color = new Color(255, 255, 255, 255);
-        i = 1f;
-        while (i > 0)
-        {
-            yield return new WaitForSeconds(0.00001f);
-            i -= 0.05f;
-        }
     }
 }
