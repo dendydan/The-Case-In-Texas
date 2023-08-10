@@ -37,7 +37,7 @@ public class EventScript : MonoBehaviour
         muhtar.SetCharacter(true);
         cher.SetCharacterTo(1, -573, -331);
         cher.SetCharacter(true);
-        lup.SetCharacterTo(1 , 605, -134);
+        lup.SetCharacterTo(1, 605, -134);
         lup.SetCharacter(true);
         BackGround.BG.ChangeBG(2);
         yield return new WaitUntil(() => reader.isDialStart == false);

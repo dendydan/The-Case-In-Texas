@@ -67,11 +67,14 @@ public abstract class Dialoge : MonoBehaviour
         }
     }
 
-    public virtual void Update()
+    public virtual void LateUpdate()
     {
         spr.color = new Color(255, 255, 255, Mathf.Lerp(spr.color.a, alpha, 10 * Time.deltaTime));
-        
-        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0 || Input.GetKeyDown(KeyCode.Space) && Time.timeScale != 0)
+    }
+
+    public virtual void Update()
+    {   
+        if (/*Input.GetMouseButtonDown(0) && Time.timeScale != 0 ||*/ Input.GetKeyDown(KeyCode.Space)/* && Time.timeScale != 0*/)
         {
             switch (istextAnimating)
             {
